@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BestLife.Models.MemberPayment>
+
+    @{
+    ViewData["Title"] = "Member Payment History";
+    string memberName = ViewBag.MemberName as string ?? "Member";
+    int memberId = (int)(ViewBag.MemberId ?? 0);
+    }
+
+    <h2>Payment History for @memberName</h2>
+
+    <p>
+        <a asp-action="AddPayment" asp-route-memberId="@memberId" class="btn btn-success">Add New Payment</a>
+        <a asp-action="Details" asp-route-id="@memberId" class="btn btn-secondary">Back to Member Details</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Board Level</th>
+                <th>Amount Paid</th>
+                <th>Cashback</th>
+                <th>Voucher</th>
+                <th>Savings</th>
+                <th>Payment Method</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+            foreach (var payment in Model)
+            {
+            <tr>
+                <td>@payment.BoardLevel</td>
+                <td>@payment.AmountPaid.ToString("N0")</td>
+                <td>@payment.Cashback.ToString("N0")</td>
+                <td>@payment.Voucher.ToString("N0")</td>
+                <td>@payment.Savings.ToString("N0")</td>
+                <td>@payment.PaymentMethod</td>
+                <td>@payment.PaymentDate.ToString("yyyy-MM-dd HH:mm")</td>
+            </tr>
+            }
+            }
+            else
+            {
+            <tr>
+                <td colspan="7" class="text-center">No payments found for this member.</td>
+            </tr>
+            }
+        </tbody>
+    </table>

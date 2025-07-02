@@ -1,0 +1,105 @@
+﻿@model IEnumerable<BestLife.Models.Members>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IDNO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferralCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvitedByCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCashback)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalVoucher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalSavings)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDNO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateJoined)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReferralCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvitedByCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCashback)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalVoucher)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSavings)
+                </td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a> |
+                    <a asp-action="AddPayment" asp-route-memberId="@item.id">Add Payment</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

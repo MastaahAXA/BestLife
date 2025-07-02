@@ -1,0 +1,75 @@
+﻿@model BestLife.Models.MemberPayment
+
+@{
+    ViewData["Title"] = "Add Payment";
+}
+
+<h2>Add Payment for @ViewBag.MemberName</h2>
+<hr />
+
+<form asp-controller="Members" asp-action="AddPayment" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="MemberId" />
+
+    <!-- Board Level -->
+    <div class="form-group">
+        <label asp-for="BoardLevel" class="control-label">Board Level</label>
+        <select asp-for="BoardLevel" class="form-control">
+            <option value="">-- Select Board Level --</option>
+            @for (int i = 1; i <= 10; i++)
+            {
+                var level = "B" + i;
+                <option value="@level" selected="@(Model.BoardLevel == level ? "selected" : null)">@level</option>
+            }
+        </select>
+        <span asp-validation-for="BoardLevel" class="text-danger"></span>
+    </div>
+
+    <!-- Amount Paid -->
+    <div class="form-group">
+        <label asp-for="AmountPaid" class="control-label">Amount Paid</label>
+        <input asp-for="AmountPaid" class="form-control" />
+        <span asp-validation-for="AmountPaid" class="text-danger"></span>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="form-group">
+        <label asp-for="PaymentMethod" class="control-label">Payment Method</label>
+        <select asp-for="PaymentMethod" class="form-control">
+            <option value="">-- Select Method --</option>
+            <option value="Mpesa" selected="@(Model.PaymentMethod == "Mpesa" ? "selected" : null)">Mpesa</option>
+            <option value="Cash" selected="@(Model.PaymentMethod == "Cash" ? "selected" : null)">Cash</option>
+        </select>
+        <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+    </div>
+
+    <!-- Cashback -->
+    <div class="form-group">
+        <label asp-for="Cashback" class="control-label">Cashback</label>
+        <input asp-for="Cashback" class="form-control" />
+        <span asp-validation-for="Cashback" class="text-danger"></span>
+    </div>
+
+    <!-- Voucher -->
+    <div class="form-group">
+        <label asp-for="Voucher" class="control-label">Voucher</label>
+        <input asp-for="Voucher" class="form-control" />
+        <span asp-validation-for="Voucher" class="text-danger"></span>
+    </div>
+
+    <!-- Savings -->
+    <div class="form-group">
+        <label asp-for="Savings" class="control-label">Savings</label>
+        <input asp-for="Savings" class="form-control" />
+        <span asp-validation-for="Savings" class="text-danger"></span>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary">Submit Payment</button>
+    <a asp-action="Details" asp-route-id="@Model.MemberId" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BestLife.Models.Growfund>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BoardLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cashback)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NextLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Savings)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvitedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoardLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cashback)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voucher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Savings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvitedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateJoined)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

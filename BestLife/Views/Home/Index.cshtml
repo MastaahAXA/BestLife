@@ -1,0 +1,114 @@
+﻿@model BestLife.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1 class="mb-4">Welcome, @Model.MyProfile?.Name</h1>
+
+<!-- Profile Section -->
+<div class="mb-5">
+    <h4>Your Profile</h4>
+    <table class="table table-bordered">
+        <tr><th>Name</th><td>@Model.MyProfile?.Name</td></tr>
+        <tr><th>ID NO</th><td>@Model.MyProfile?.IDNO</td></tr>
+        <tr><th>Phone</th><td>@Model.MyProfile?.PhoneNo</td></tr>
+        <tr><th>Email</th><td>@Model.MyProfile?.Email</td></tr>
+        <tr><th>Gender</th><td>@Model.MyProfile?.Gender</td></tr>
+        <tr><th>Date Joined</th><td>@Model.MyProfile?.DateJoined.ToShortDateString()</td></tr>
+        <tr><th>Your Referral Code</th><td>@Model.MyProfile?.ReferralCode</td></tr>
+    </table>
+</div>
+
+<!-- Growfund Section -->
+<div class="mb-5">
+    <h4>Your Growfund Details</h4>
+    @if (Model.MyGrowfund != null)
+    {
+        <table class="table table-bordered table-striped">
+            <tr><th>Board Level</th><td>@Model.MyGrowfund.BoardLevel</td></tr>
+            <tr><th>Payment</th><td>@Model.MyGrowfund.Payment</td></tr>
+            <tr><th>Cashback</th><td>@Model.MyGrowfund.Cashback</td></tr>
+            <tr><th>Voucher</th><td>@Model.MyGrowfund.Voucher</td></tr>
+            <tr><th>Savings</th><td>@Model.MyGrowfund.Savings</td></tr>
+            <tr><th>Next Level</th><td>@Model.MyGrowfund.NextLevel</td></tr>
+            <tr><th>Invited By</th><td>@Model.MyGrowfund.InvitedBy</td></tr>
+            <tr><th>Date Joined</th><td>@Model.MyGrowfund.DateJoined.ToShortDateString()</td></tr>
+        </table>
+    }
+    else
+    {
+        <p class="text-danger">No growfund data available.</p>
+    }
+</div>
+
+<!-- Referrals Section -->
+<div class="mb-5">
+    <h4>Your Referrals</h4>
+
+    <!-- Gender Filter -->
+    
+
+    @if (Model.MembersByGender != null && Model.MembersByGender.Any())
+    {
+        foreach (var group in Model.MembersByGender)
+        {
+            <h5 class="mt-4">@group.Gender Referrals</h5>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>ID NO</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Date Joined</th>
+                        <th>Payment Record</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var referral in group.Members)
+                    {
+                        var payments = Model.MemberPayments?
+                        .Where(p => p.MemberId == referral.id)
+                        .ToList();
+
+                        <tr>
+                            <td>@referral.Name</td>
+                            <td>@referral.IDNO</td>
+                            <td>@referral.PhoneNo</td>
+                            <td>@referral.Email</td>
+                            <td>@referral.Gender</td>
+                            <td>@referral.DateJoined.ToShortDateString()</td>
+                            <td>
+                                @if (payments != null && payments.Any())
+                                {
+                                    <ul class="list-unstyled">
+                                        @foreach (var pay in payments)
+                                        {
+                                            <li>
+                                                <strong>@pay.BoardLevel</strong>:
+                                                Cashback: <span class="text-success">@pay.Cashback</span>,
+                                                Voucher: <span class="text-info">@pay.Voucher</span>,
+                                                Savings: <span class="text-primary">@pay.Savings</span>,
+                                                Date: @pay.PaymentDate.ToShortDateString()
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No payments yet</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+    else
+    {
+        <p class="text-muted">You haven't referred anyone yet.</p>
+    }
+</div>

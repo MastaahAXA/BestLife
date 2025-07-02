@@ -1,0 +1,166 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var user = HttpContextAccessor.HttpContext?.User;
+    var isAuthenticated = user?.Identity?.IsAuthenticated ?? false;
+    var userEmail = user?.Identity?.Name ?? "";
+    var userRole = user?.FindFirst(ClaimTypes.Role)?.Value ?? "";
+    var memberId = user?.FindFirst("MemberId")?.Value;
+
+    var currentController = ViewContext.RouteData.Values["Controller"]?.ToString()?.ToLower();
+    var currentAction = ViewContext.RouteData.Values["Action"]?.ToString()?.ToLower();
+    var isAuthPage = currentController == "account" && (currentAction == "login" || currentAction == "register");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - BestLife</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BestLife.styles.css" asp-append-version="true" />
+
+    <style>
+        body {
+            padding-top: 56px;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            background-color: #002244;
+            color: white;
+        }
+
+            .sidebar .nav-link {
+                color: #fff;
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
+                border-left: 4px solid transparent;
+            }
+
+                .sidebar .nav-link:hover,
+                .sidebar .nav-link.active {
+                    background-color: #004080;
+                    border-left: 4px solid #00bfff;
+                    color: #fff;
+                }
+
+        .main-content {
+            margin-left: 230px;
+            padding: 30px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #004080 !important;
+        }
+
+        footer {
+            margin-left: 230px;
+            padding: 1rem;
+            background-color: #f1f1f1;
+        }
+
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            display: none;
+        }
+
+        .main-content,
+        footer {
+            margin-left: 0;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom fixed-top shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">BestLife</a>
+            @if (isAuthenticated && !isAuthPage)
+            {
+                <div class="ms-auto">
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    @if (isAuthenticated && !isAuthPage)
+    {
+        <div class="sidebar d-flex flex-column pt-3">
+            <a class="nav-link @(currentAction == "index" ? "active" : "")" asp-controller="Home" asp-action="Index">
+                <i class="fas fa-home me-2"></i>Dashboard
+            </a>
+
+            @if (userRole == "Admin")
+            {
+                <a class="nav-link @(currentController == "members" && currentAction == "index" ? "active" : "")" asp-controller="Members" asp-action="Index">
+                    <i class="fas fa-users me-2"></i>All Members
+                </a>
+                <a class="nav-link @(currentController == "growfunds" ? "active" : "")" asp-controller="Growfunds" asp-action="Index">
+                    <i class="fas fa-leaf me-2"></i>Growfunds
+                </a>
+                <a class="nav-link" asp-controller="Members" asp-action="MemberPayments" asp-route-memberId="0">
+                    <i class="fas fa-money-check-alt me-2"></i>All Payments
+                </a>
+            }
+
+            @if (!string.IsNullOrEmpty(memberId))
+            {
+                <a class="nav-link @(currentAction == "addpayment" ? "active" : "")" asp-controller="Members" asp-action="AddPayment" asp-route-memberId="@memberId">
+                    <i class="fas fa-plus-circle me-2"></i>Add Payment
+                </a>
+                <a class="nav-link @(currentAction == "memberpayments" ? "active" : "")" asp-controller="Members" asp-action="MemberPayments" asp-route-memberId="@memberId">
+                    <i class="fas fa-list me-2"></i>My Payments
+                </a>
+                <a class="nav-link @(currentAction == "earningsperlevel" ? "active" : "")" asp-controller="Members" asp-action="EarningsPerLevel" asp-route-memberId="@memberId">
+                    <i class="fas fa-chart-line me-2"></i>My Earnings
+                </a>
+            }
+        </div>
+    }
+
+    <!-- Main Content -->
+    <div class="@(isAuthenticated && !isAuthPage ? "main-content" : "")">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    @if (isAuthenticated && !isAuthPage)
+    {
+        <footer class="border-top text-muted text-center small">
+            &copy; @DateTime.Now.Year - BestLife. All rights reserved.
+        </footer>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

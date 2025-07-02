@@ -1,0 +1,44 @@
+﻿@model BestLife.Models.MemberEarningsViewModel
+
+<h2>@Model.Member.Name's Earnings by Board Level</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Board Level</th>
+            <th>Cashback</th>
+            <th>Voucher</th>
+            <th>Savings</th>
+            <th>Earned On</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            // Define the expected board levels
+            var levels = new[] { "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10" };
+
+            // Create a dictionary from the model data for fast lookup
+            var earningsDict = Model.EarningsPerLevel.ToDictionary(e => e.BoardLevel);
+        }
+
+        @foreach (var level in levels)
+        {
+            var item = earningsDict.ContainsKey(level) ? earningsDict[level] : new BestLife.Models.MemberEarnings
+            {
+                BoardLevel = level,
+                Cashback = 0,
+                Voucher = 0,
+                Savings = 0,
+                EarnedOn = DateTime.MinValue // Non-null fallback
+            };
+
+            <tr>
+                <td>@item.BoardLevel</td>
+                <td>@item.Cashback.ToString("F2")</td>
+                <td>@item.Voucher.ToString("F2")</td>
+                <td>@item.Savings.ToString("F2")</td>
+                <td>@(item.EarnedOn == DateTime.MinValue ? "N/A" : item.EarnedOn.ToShortDateString())</td>
+            </tr>
+        }
+    </tbody>
+</table>

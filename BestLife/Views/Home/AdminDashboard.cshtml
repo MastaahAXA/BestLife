@@ -1,0 +1,126 @@
+﻿@model BestLife.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2 class="mb-4 text-primary">Admin Dashboard</h2>
+
+<!-- Section: Gender Grouped Members -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <i class="fas fa-users"></i> Members Grouped by Gender
+    </div>
+    <div class="card-body">
+        @if (Model.MembersByGender != null && Model.MembersByGender.Any())
+        {
+            foreach (var group in Model.MembersByGender)
+            {
+                <h5>@group.Gender Members (@group.Members.Count)</h5>
+                <table class="table table-bordered table-sm mb-4">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>ID No</th>
+                            <th>Joined On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in group.Members)
+                        {
+                            <tr>
+                                <td>@member.Name</td>
+                                <td>@member.Email</td>
+                                <td>@member.PhoneNo</td>
+                                <td>@member.IDNO</td>
+                                <td>@member.DateJoined.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        else
+        {
+            <p>No member data available.</p>
+        }
+    </div>
+</div>
+
+<!-- Section: Payment Records -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <i class="fas fa-wallet"></i> All Member Payments
+    </div>
+    <div class="card-body">
+        @if (Model.MemberPayments != null && Model.MemberPayments.Any())
+        {
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>Member ID</th>
+                        <th>Board Level</th>
+                        <th>Amount Paid</th>
+                        <th>Payment Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var payment in Model.MemberPayments)
+                    {
+                        <tr>
+                            <td>@payment.MemberId</td>
+                            <td>@payment.BoardLevel</td>
+                            <td>@payment.AmountPaid</td>
+                            <td>@payment.PaymentDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No payments recorded yet.</p>
+        }
+    </div>
+</div>
+
+<!-- Section: Registered Members -->
+<div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+        <i class="fas fa-id-card"></i> All Registered Users
+    </div>
+    <div class="card-body">
+        @if (Model.RegisteredUsers != null && Model.RegisteredUsers.Any())
+        {
+            <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Date Joined</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.RegisteredUsers)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.FullName</td>
+                            <td>@user.Email</td>
+                            <td>@user.Role</td>
+                            <td>@user.DateJoined.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No registered users found.</p>
+        }
+    </div>
+</div>

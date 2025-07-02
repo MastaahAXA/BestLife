@@ -1,0 +1,74 @@
+﻿@model BestLife.Models.Growfund
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Growfund</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BoardLevel" class="control-label"></label>
+                <input asp-for="BoardLevel" class="form-control" />
+                <span asp-validation-for="BoardLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment" class="control-label"></label>
+                <input asp-for="Payment" class="form-control" />
+                <span asp-validation-for="Payment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cashback" class="control-label"></label>
+                <input asp-for="Cashback" class="form-control" />
+                <span asp-validation-for="Cashback" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher" class="control-label"></label>
+                <input asp-for="Voucher" class="form-control" />
+                <span asp-validation-for="Voucher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NextLevel" class="control-label"></label>
+                <input asp-for="NextLevel" class="form-control" />
+                <span asp-validation-for="NextLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Savings" class="control-label"></label>
+                <input asp-for="Savings" class="form-control" />
+                <span asp-validation-for="Savings" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvitedBy" class="control-label"></label>
+                <input asp-for="InvitedBy" class="form-control" />
+                <span asp-validation-for="InvitedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateJoined" class="control-label"></label>
+                <input asp-for="DateJoined" class="form-control" />
+                <span asp-validation-for="DateJoined" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,231 @@
+﻿@model BestLife.Models.Registration
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - BestLife</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: url('/images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+
+        .glass-form {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 1140px;
+            color: #ffffff;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        }
+
+            .glass-form h2 {
+                font-weight: 700;
+                font-size: 30px;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+        .logo {
+            display: block;
+            margin: 0 auto 25px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: url('/images/logo.png') center center/cover no-repeat;
+            border: 2px solid #fff;
+        }
+
+        label {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .form-control, .form-select {
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid #ffffff44;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+            .form-control::placeholder {
+                color: #dddddd;
+            }
+
+            .form-control:focus {
+                background-color: rgba(255, 255, 255, 0.25);
+                outline: none;
+                box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+                color: #ffffff;
+            }
+
+            .form-select option {
+                background: #222;
+                color: #fff;
+            }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            font-weight: bold;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .text-danger {
+            color: #f8d7da;
+            font-size: 0.9rem;
+        }
+
+        a {
+            color: #ffffffd9;
+            text-decoration: underline;
+        }
+
+            a:hover {
+                color: #ffffff;
+            }
+
+        .dob-error {
+            display: none;
+            color: #f8d7da;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-form">
+        <div class="logo"></div>
+        <h2>Create Your Account</h2>
+
+        <form asp-action="Register" method="post" class="row g-3" id="registerForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+            <div class="col-md-6 col-lg-4">
+                <label asp-for="FullName"></label>
+                <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="Enter email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <label asp-for="Gender"></label>
+                <select asp-for="Gender" class="form-select">
+                    <option value="">-- Select Gender --</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <label asp-for="IDNO"></label>
+                <input asp-for="IDNO" class="form-control" placeholder="Enter ID number" />
+                <span asp-validation-for="IDNO" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <label asp-for="DOB"></label>
+                <input asp-for="DOB" type="date" class="form-control" id="dobInput" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+                <div class="dob-error" id="dobError">You must be at least 18 years old.</div>
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="ReferralCode"></label>
+                <input asp-for="ReferralCode" class="form-control" placeholder="Optional referral code" />
+                <span asp-validation-for="ReferralCode" class="text-danger"></span>
+                @if (ViewBag.ReferralError != null)
+                {
+                    <span class="text-danger">@ViewBag.ReferralError</span>
+                }
+            </div>
+
+            <!-- Password section moved to bottom -->
+            <div class="col-md-6 col-lg-6">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 col-lg-6">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Repeat password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100" id="registerBtn">Register</button>
+            </div>
+        </form>
+
+        <p class="mt-4 text-center">
+            Already have an account?
+            <a asp-controller="Account" asp-action="Login">Login here</a>.
+        </p>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
+            const dobInput = document.getElementById("dobInput");
+            const dobError = document.getElementById("dobError");
+            const dobValue = new Date(dobInput.value);
+            const today = new Date();
+            const age = today.getFullYear() - dobValue.getFullYear();
+            const m = today.getMonth() - dobValue.getMonth();
+
+            const isUnderage = (age < 18 || (age === 18 && m < 0));
+
+            if (isUnderage) {
+                e.preventDefault();
+                dobError.style.display = "block";
+                dobInput.classList.add("is-invalid");
+            } else {
+                dobError.style.display = "none";
+                dobInput.classList.remove("is-invalid");
+            }
+        });
+    </script>
+</body>
+</html>
