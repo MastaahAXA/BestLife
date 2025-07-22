@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
+                <label asp-for="MemberId" class="control-label">Member</label>
                 <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BoardLevel" class="control-label"></label>
+                <label asp-for="BoardLevel" class="control-label">Board Level</label>
                 <input asp-for="BoardLevel" class="form-control" />
                 <span asp-validation-for="BoardLevel" class="text-danger"></span>
             </div>
@@ -29,7 +29,7 @@
                 <span asp-validation-for="Payment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cashback" class="control-label"></label>
+                <label asp-for="Cashback" class="control-label">Cash Back</label>
                 <input asp-for="Cashback" class="form-control" />
                 <span asp-validation-for="Cashback" class="text-danger"></span>
             </div>
@@ -39,7 +39,7 @@
                 <span asp-validation-for="Voucher" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NextLevel" class="control-label"></label>
+                <label asp-for="NextLevel" class="control-label">Next level</label>
                 <input asp-for="NextLevel" class="form-control" />
                 <span asp-validation-for="NextLevel" class="text-danger"></span>
             </div>
@@ -49,24 +49,21 @@
                 <span asp-validation-for="Savings" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InvitedBy" class="control-label"></label>
+                <label asp-for="InvitedBy" class="control-label">Invited By</label>
                 <input asp-for="InvitedBy" class="form-control" />
                 <span asp-validation-for="InvitedBy" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateJoined" class="control-label"></label>
+                <label asp-for="DateJoined" class="control-label">Date Joined</label>
                 <input asp-for="DateJoined" class="form-control" />
                 <span asp-validation-for="DateJoined" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

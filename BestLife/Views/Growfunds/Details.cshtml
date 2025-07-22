@@ -11,55 +11,58 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Member)
+            Member:
         </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Member)
+        </dd>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Member.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BoardLevel)
+            Board Level:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.BoardLevel)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Payment)
+            Payment:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Payment)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cashback)
+            Cashback:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Cashback)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Voucher)
+            Voucher:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Voucher)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NextLevel)
+            Level:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NextLevel)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Savings)
+            Savings:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Savings)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InvitedBy)
+           Invited By:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.InvitedBy)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateJoined)
+            Date Joined:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DateJoined)
@@ -67,6 +70,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>

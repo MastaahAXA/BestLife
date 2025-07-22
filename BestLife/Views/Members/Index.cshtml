@@ -4,51 +4,66 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    .table tr {
+        font-size: 12px;
+    }
+</style>
 
+<h1>Members Table</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="fas fa-user-plus"></i> New Member
+    </a>
 </p>
+
+
+@* <p>
+    <a asp-action="Create">+ New Member</a>
+</p> *@
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Member Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IDNO)
+                Id No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNo)
+                Phone No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DOB)
+                D.O.B
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Gender)
+                Gender
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateJoined)
+                Joined Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReferralCode)
+                Referral Code
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvitedByCode)
+                Invited By
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalCashback)
+                Cash back
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalVoucher)
+                Total Voucher
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalSavings)
+                Savings
             </th>
-            <th></th>
+            <th>Details</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Add Paymeny</th>
         </tr>
     </thead>
     <tbody>
@@ -93,11 +108,25 @@
                 </td>
 
                 <td>
+                    <a asp-action="Details" asp-route-id="@item.id" title="Details" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id" title="Edit" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.id" title="Delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+                <td>
+                    <a asp-action="AddPayment" asp-route-memberId="@item.id" title="Add Payment" class="btn btn-sm btn-success"><i class="fas fa-credit-card"></i></a>
+                </td>
+
+
+                @* <td>
                     <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                     <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.id">Delete</a> |
                     <a asp-action="AddPayment" asp-route-memberId="@item.id">Add Payment</a>
-                </td>
+                </td> *@
 
             </tr>
         }

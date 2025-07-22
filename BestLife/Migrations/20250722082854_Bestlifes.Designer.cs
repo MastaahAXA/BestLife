@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BestLife.Migrations
 {
     [DbContext(typeof(BestLifeDbContext))]
-    [Migration("20250701124942_UpdateToUnicode")]
-    partial class UpdateToUnicode
+    [Migration("20250722082854_Bestlifes")]
+    partial class Bestlifes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,10 +215,6 @@ namespace BestLife.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConfirmationCode")
                         .HasMaxLength(10)

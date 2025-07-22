@@ -213,10 +213,6 @@ namespace BestLife.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConfirmationCode")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");

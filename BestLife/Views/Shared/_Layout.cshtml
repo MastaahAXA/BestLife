@@ -112,7 +112,7 @@
     @if (isAuthenticated && !isAuthPage)
     {
         <div class="sidebar d-flex flex-column pt-3">
-            <a class="nav-link @(currentAction == "index" ? "active" : "")" asp-controller="Home" asp-action="Index">
+            <a class="nav-link @(currentAction == "index" ? "active" : "")">
                 <i class="fas fa-home me-2"></i>Dashboard
             </a>
 
@@ -124,7 +124,7 @@
                 <a class="nav-link @(currentController == "growfunds" ? "active" : "")" asp-controller="Growfunds" asp-action="Index">
                     <i class="fas fa-leaf me-2"></i>Growfunds
                 </a>
-                <a class="nav-link" asp-controller="Members" asp-action="MemberPayments" asp-route-memberId="0">
+                <a class="nav-link" asp-controller="Members" asp-action="MemberPayments">
                     <i class="fas fa-money-check-alt me-2"></i>All Payments
                 </a>
             }
